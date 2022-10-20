@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<section class="approve dashboard-page" id="approve-content">
+
+<section class="client mt-4" id="client-content">
+    <div class="container">
+        <form name="cliente" id="cliente" action="" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome Completo</label>
+                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="João" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">CPF</label>
+                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="012.949.879-36" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Telefone</label>
+                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="(49) 984321-8923" required>
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Pega fiado</label>
+                <select class="form-control" id="group" name="group" required>
+                    <option value="" selected disabled>Selecione a opção</option>
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input maxlength="100" type="text" class="form-control" id="login" name="login" placeholder="JaoCleber123" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input maxlength="100" type="password" class="form-control" id="password" name="password" placeholder="******" required>
+            </div>
+            <div class="mb-3">
+                <label for="repass" class="form-label">Confirmar Senha</label>
+                <input maxlength="100" type="password" class="form-control" id="repass" name="repassword" placeholder="******" required>
+            </div>
+
+            <button class="btn btn-outline-success">
+                SALVAR
+            </button>
+        </form>
+    </div>
+</section>
+</section>
+
+{% endblock %}

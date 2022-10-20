@@ -1,11 +1,59 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>Clientes</title>
-</head>
-<body>
-<h1>Rota da página de Clientes da nossa WEB APP</h1>
-<h1>Uso de render_template</h1>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<section class="approve dashboard-page" id="approve-content">
+
+<section class="client mt-4" id="client-content">
+    <div class="container">
+        <form name="cliente" id="cliente">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome Completo</label>
+                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="João" >
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">CPF</label>
+                <input maxlength="100" type="text" class="form-control" id="document" name="document" placeholder="012.949.879-36" >
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Telefone</label>
+                <input maxlength="100" type="text" class="form-control" id="phone" name="phone" placeholder="(49) 984321-8923" >
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Pega fiado</label>
+                <select class="form-control" id="group" name="group" >
+                    <option value="" selected hidden>Selecione a opção</option>
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input maxlength="100" type="text" class="form-control" id="login" name="login" placeholder="JaoCleber123" >
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input maxlength="100" type="password" class="form-control" id="password" name="password" placeholder="******" >
+            </div>
+            <div class="mb-3">
+                <label for="repass" class="form-label">Confirmar Senha</label>
+                <input maxlength="100" type="password" class="form-control" id="repass" name="repassword" placeholder="******" >
+            </div>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-success" id="save">
+                    SALVAR
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+</section>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/admin/clients.js') }}"></script>
+{% endblock %}

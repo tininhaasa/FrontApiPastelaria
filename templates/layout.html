@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Pastelaria</title>
+    {% block style %}{% endblock %}
+    <style>
+        .important {
+            color: #6495ED;
+        }
+
+    </style>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='libs/fontawesome-6.0/css/all.min.css') }}">
+
+    <link href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <header style="height: 76px;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="toggle-menu bars" data-open-sidebar>
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index.formListaIndex') }}">
+                    <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+                </a>
+                <ul class="nav pull-right">
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <a href="javascript:void(0)" onclick="location.reload();">
+                            <i class="fas fa-sync-alt"></i>
+                        </a>
+                    </li>
+
+                    <li class="hide-fullscreen">
+                        <a href="javascript:void(0)" data-action="fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="row">
+
+        <div class="col-lg-2 col-md-3">
+            {% block menu %}
+            <aside class="col-lg-2 col-md-3 sidebar sidebar-open">
+                <div class="header-menu">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-warning dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="sidebar-links">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('index.formListaIndex') }}" class="">
+                                <i class="fa-solid fa-house"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('cliente.ListaCliente') }}" class="">
+                                <i class="fa-solid fa-user-group"></i>
+                                Clientes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('funcionario.ListaFuncionarios') }}" class="">
+                                <i class="fa-solid fa-user-tie"></i>
+                                Funcionários
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('produto.ListaProdutos') }}" class="">
+                                <i class="fa-solid fa-bowl-food"></i>
+                                Produtos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('index.formListaIndex') }}" class="">
+                                <i class="fa-solid fa-table-list"></i>
+                                Comandas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            {% endblock %}
+        </div>
+        <div class="col-lg-9 col-md-9 page-main">
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    {% block footer %}
+    &copy; Copyright 2022 by <a href="http://127.0.0.1:5000/">Pastelaria</a>.
+    {% endblock %}
+
+    <script type="text/javascript">
+        var PATH = 'http://127.0.0.1:5000/';
+        var Helpers = {};
+        var Parameters = window.location.href.split("/");
+        Parameters = Parameters.reverse();
+
+    </script>
+    <script src="{{ url_for('static', filename='libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='libs/jquery/jquery.mask.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='libs/jquery/jquery.maskMoney.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/helpers/helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/menu.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="{{ url_for('static', filename='libs/bootstrap/js/bootstrap.bundle.min.js') }}">
+    </script>
+    {% block js %}{% endblock %}
+</body>
+
+</html>

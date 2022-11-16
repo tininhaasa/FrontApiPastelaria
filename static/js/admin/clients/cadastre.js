@@ -110,10 +110,11 @@
                     dataType: "JSON",
                 }).done(function (res) {
 
-                    if (res[0].find(erro => typeof erro != "undefined")) {
+                    array_res = res[0];
+                    if(typeof res[0].erro != "undefined"){
                         Swal.fire({
                             icon: 'error',
-                            text: res.find(erro => typeof erro != "undefined"),
+                            text: res[0].erro,
                             confirmButtonText: "Continuar",
                             confirmButtonColor: "#ffc107"
                         }).then(function (res) {

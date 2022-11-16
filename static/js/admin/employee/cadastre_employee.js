@@ -94,13 +94,42 @@
     var save = function(){
         $("body").on("click", "#save", function(){
             if(check()){
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Funcionário cadastrado com sucesso',
-                    confirmButtonText: "Continuar",
-                    confirmButtonColor: "#ffc107"
-                }).then(function(res){
-                    window.location.href = PATH + '/funcionario'
+                $.ajax({
+                    url: PATH + "funcionario/salvar_funcionario/",
+                    type: "POST",
+                    data: {
+                        id : 0,
+                        nome : $('#name').val(),
+                        documento : $('#document').val(),
+                        telefone: $('#phone').val(),
+                        grupo: $('#group').val(),
+                        login: $('#login').val(),
+                        senha: $('#password').val(),
+                        matricula: 1
+                    },
+                    dataType: "JSON",
+                }).done(function (res) {
+
+                    console.log(res)
+                    if(res.find(erro => typeof erro != "undefined")){
+                        Swal.fire({
+                            icon: 'error',
+                            text: res.find(erro => typeof erro != "undefined"),
+                            confirmButtonText: "Continuar",
+                            confirmButtonColor: "#ffc107"
+                        }).then(function(res){
+                            return false;
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Funcionário cadastrado com sucesso',
+                            confirmButtonText: "Continuar",
+                            confirmButtonColor: "#ffc107"
+                        }).then(function(res){
+                            window.location.href = PATH + '/funcionario'
+                        })
+                    }
                 })
             }
         })

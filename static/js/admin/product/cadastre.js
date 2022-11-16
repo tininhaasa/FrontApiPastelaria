@@ -80,14 +80,60 @@
     var save = function () {
         $('body').on('click', "#save", function () {
             if (check()) {
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Produto cadastrado com sucesso',
-                    confirmButtonText: "Continuar",
-                    confirmButtonColor: "#ffc107"
-                }).then(function (res) {
-                    window.location.href = PATH + '/produto'
-                })
+                
+                $('#product-form').submit(function(e){
+                    
+                    var formObj = $(this);
+                    var formURL = formObj.attr("action");
+                    var formData = new FormData(this);
+
+                    var price = $("#price").val().replace('R$', '');
+                    price = price.replace(',', '.');
+                    price = price.replace(',', '.');
+                    price = price.replace('.', '');
+
+                    formData.append("price", price);
+                    $.ajax({
+                        url: PATH + 'produto/insert',
+                        data: formData,
+                        type: 'POST',
+                        dataType: 'json',
+                        mimeType: "multipart/form-data",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        async: false,
+                    }).done(function(res) {
+                        if (res[0].find(erro => typeof erro != "undefined")) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: res[0].find(erro => typeof erro != "undefined"),
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function () {
+                                return false;
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Produto cadastrado com sucesso',
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function () {
+                                window.location.href = PATH + '/produto'
+                            })
+                        }
+                    });
+                
+                    e.preventDefault();
+
+                    return true;
+
+                });
+
+                $('#product-form').submit();
+            
+                
             }
         })
     }

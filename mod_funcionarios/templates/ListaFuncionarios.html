@@ -6,14 +6,14 @@
 <section class="approve dashboard-page" id="approve-content">
 
     <div class="p-3">
-
+        {{result}}
         <div class="dashboard-title">
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="title">Funcionário</h1>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="{{ url_for('cadastro_funcionario.formListaFuncionario') }}" class="btn btn-secondary">
+                    <a href="{{ url_for('funcionario.formListaFuncionario') }}" class="btn btn-secondary">
                         Cadastrar Funcionário
                     </a>
                 </div>
@@ -43,50 +43,40 @@
                             </tr>
                         </thead>
                         <tbody class="appendhere">
-                            <tr class="text-center">
-                                <td>1</td>
-                                <td>Degas</td>
-                                <td>(49) 98432-1589</td>
-                                <td>012.949.879-33</td>
-                                <td>Caixa</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-success dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Ativo
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">Ativar</a></li>
-                                            <li><a class="dropdown-item" href="#">Desativar</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-light">Editar</button>
-                                </td>
-                            </tr>
-                            <tr class="text-center">
-                                <td>1</td>
-                                <td>Degas</td>
-                                <td>(49) 98432-1589</td>
-                                <td>012.949.879-33</td>
-                                <td>Caixa</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-success dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Ativo
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">Ativar</a></li>
-                                            <li><a class="dropdown-item" href="#">Desativar</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-light">Editar</button>
-                                </td>
-                            </tr>
+                            {% if result %}
+                                {% for row in result[0] %}
+                                <tr class="text-center">
+                                    <td>{{ row['id'] }}</td>
+                                    <td>{{ row['nome'] }}</td>
+                                    <td>{{ row['telefone'] }}</td>
+                                    <td>{{ row['cpf'] }}</td>
+                                    <td>{{ row['grupo'] }}</td>
+                                    <td>
+                                        
+                                        <div class="dropdown">
+                                            {% if row['status'] == '1' %}
+                                                <button class="btn btn-success dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Ativo
+                                                </button>
+                                            {% else %}
+                                                <button class="btn btn-danger dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Inativo
+                                                </button>
+                                            {% endif %}
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" href="#">Ativar</a></li>
+                                                <li><a class="dropdown-item" href="#">Desativar</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a type="button" class="btn btn-outline-light" href="{{ url_for('funcionario.formListaFuncionario') }}">Editar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>

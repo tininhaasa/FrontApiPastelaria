@@ -5,17 +5,17 @@
         Helpers.phoneMask($('#phone'));
     }
 
-    var check = function(){
+    var check = function () {
 
-        var name        = $('#name').val().trim();
-        var document    = $('#document').val().trim();
-        var phone       = $('#phone').val().trim();
-        var group       = $('#group').val();
-        var login       = $('#login').val().trim();
-        var pass        = $('#password').val().trim();
-        var repass      = $('#repass').val().trim();
+        var name = $('#name').val().trim();
+        var document = $('#document').val().trim();
+        var phone = $('#phone').val().trim();
+        var group = $('#group').val();
+        var login = $('#login').val().trim();
+        var pass = $('#password').val().trim();
+        var repass = $('#repass').val().trim();
 
-        if(name == ""){
+        if (name == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Insira o nome do cliente',
@@ -24,7 +24,7 @@
             })
             return false;
         }
-        if(document == ""){
+        if (document == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Insira o documento do cliente',
@@ -33,7 +33,7 @@
             })
             return false;
         }
-        if(phone == ""){
+        if (phone == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Insira o telefone do cliente',
@@ -42,7 +42,7 @@
             })
             return false;
         }
-        if(group == ""){
+        if (group == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Selecione se o cliente pega fiado',
@@ -51,7 +51,7 @@
             })
             return false;
         }
-        if(login == ""){
+        if (login == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Insira o login para o cliente',
@@ -60,7 +60,7 @@
             })
             return false;
         }
-        if(pass == ""){
+        if (pass == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Insira a senha de acesso',
@@ -69,7 +69,7 @@
             })
             return false;
         }
-        if(repass == ""){
+        if (repass == "") {
             Swal.fire({
                 icon: 'error',
                 text: 'Confirme a senha inserida',
@@ -78,7 +78,7 @@
             })
             return false;
         }
-        if(pass != repass){
+        if (pass != repass) {
             Swal.fire({
                 icon: 'error',
                 text: 'As duas senhas devem ser iguais',
@@ -91,21 +91,50 @@
         return true;
     }
 
-    var save = function(){
-        $("body").on("click", "#save", function(){
-            if(check()){
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Cliente cadastrado com sucesso',
-                    confirmButtonText: "Continuar",
-                    confirmButtonColor: "#ffc107"
-                }).then(function(res){
-                    window.location.href = PATH + '/cliente'
+    var save = function () {
+        $("body").on("click", "#save", function () {
+            if (check()) {
+                $.ajax({
+                    url: PATH + "cliente/salvar_cliente/",
+                    type: "POST",
+                    data: {
+                        id: 0,
+                        nome: $('#name').val(),
+                        documento: $('#document').val(),
+                        telefone: $('#phone').val(),
+                        grupo: $('#group').val(),
+                        login: $('#login').val(),
+                        senha: $('#password').val(),
+                        matricula: 1
+                    },
+                    dataType: "JSON",
+                }).done(function (res) {
+
+                    if (res[0].find(erro => typeof erro != "undefined")) {
+                        Swal.fire({
+                            icon: 'error',
+                            text: res.find(erro => typeof erro != "undefined"),
+                            confirmButtonText: "Continuar",
+                            confirmButtonColor: "#ffc107"
+                        }).then(function (res) {
+                            return false;
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Cliente cadastrado com sucesso',
+                            confirmButtonText: "Continuar",
+                            confirmButtonColor: "#ffc107"
+                        }).then(function (res) {
+                            window.location.href = PATH + '/cliente'
+                        })
+                    }
                 })
             }
-        })
+
+        });
     }
-    
+
     $(document).ready(function () {
         $('#name').focus()
         masks();

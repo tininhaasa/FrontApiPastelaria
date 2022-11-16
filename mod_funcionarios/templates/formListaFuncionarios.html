@@ -7,10 +7,11 @@
 
 <section class="employee mt-4" id="employee-content">
     <div class="container">
-        <form name="funcionario" id="funcionario">
+        <form name="funcionario" id="form-funcionario">
+            <input type="text" hidden name="id" id="id">
             <div class="mb-3">
                 <label for="name" class="form-label">Nome Completo</label>
-                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="João" >
+                <input maxlength="100" type="text" class="form-control" id="name" name="nome" placeholder="João" >
             </div>
             <div class="mb-3">
                 <label for="document" class="form-label">CPF</label>
@@ -18,11 +19,11 @@
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Telefone</label>
-                <input maxlength="100" type="text" class="form-control" id="phone" name="phone" placeholder="(49) 984321-8923" >
+                <input maxlength="100" type="text" class="form-control" id="phone" name="telefone" placeholder="(49) 984321-8923" >
             </div>
             <div class="mb-3">
                 <label for="group" class="form-label">Grupo</label>
-                <select class="form-control" id="group" name="group" >
+                <select class="form-control" id="group" name="grupo" >
                     <option value="" selected hidden>Selecione o grupo</option>
                     <option value="1">Administrador</option>
                     <option value="2">Funcionário</option>
@@ -34,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Senha</label>
-                <input maxlength="100" type="password" class="form-control" id="password" name="password" placeholder="******" >
+                <input maxlength="100" type="password" class="form-control" id="password" name="senha" placeholder="******" >
             </div>
             <div class="mb-3">
                 <label for="repass" class="form-label">Confirmar Senha</label>
@@ -56,4 +57,4 @@
 
 {% block js %}
     <script src="{{ url_for('static', filename='js/admin/employee/cadastre_employee.js') }}"></script>
-{% endblock %}
+{% endblock %},

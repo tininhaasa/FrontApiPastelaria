@@ -87,46 +87,83 @@
                     var formURL = formObj.attr("action");
                     var formData = new FormData(this);
 
+                    formData.delete('price');
+
                     var price = $("#price").val().replace('R$', '');
-                    price = price.replace(',', '.');
-                    price = price.replace(',', '.');
                     price = price.replace('.', '');
+                    price = price.replace(',', '.');
 
                     formData.append("price", price);
-                    $.ajax({
-                        url: PATH + 'produto/insert',
-                        data: formData,
-                        type: 'POST',
-                        dataType: 'json',
-                        mimeType: "multipart/form-data",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        async: false,
-                    }).done(function(res) {
+                    console.log($("#id").val())
+                    if($("#id").val() != "0" && $("#id").val() != ""){
+                        $.ajax({
+                            url: PATH + 'produto/editar_produto/',
+                            data: formData,
+                            type: 'POST',
+                            dataType: 'json',
+                            mimeType: "multipart/form-data",
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            async: false,
+                        }).done(function(res) {
 
-                        array_res = res[0];
-                        if(typeof res[0].erro != "undefined"){
-                            Swal.fire({
-                                icon: 'error',
-                                text: res[0].erro,
-                                confirmButtonText: "Continuar",
-                                confirmButtonColor: "#ffc107"
-                            }).then(function () {
-                                return false;
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'Produto cadastrado com sucesso',
-                                confirmButtonText: "Continuar",
-                                confirmButtonColor: "#ffc107"
-                            }).then(function () {
-                                window.location.href = PATH + '/produto'
-                            })
-                        }
-                    });
-                
+                            array_res = res[0];
+                            if(typeof res[0].erro != "undefined"){
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: res[0].erro,
+                                    confirmButtonText: "Continuar",
+                                    confirmButtonColor: "#ffc107"
+                                }).then(function () {
+                                    return false;
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Produto cadastrado com sucesso',
+                                    confirmButtonText: "Continuar",
+                                    confirmButtonColor: "#ffc107"
+                                }).then(function () {
+                                    window.location.href = PATH + '/produto'
+                                })
+                            }
+                        });
+                    }else{
+                        $.ajax({
+                            url: PATH + 'produto/salvar_produto/',
+                            data: formData,
+                            type: 'POST',
+                            dataType: 'json',
+                            mimeType: "multipart/form-data",
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            async: false,
+                        }).done(function(res) {
+
+                            array_res = res[0];
+                            if(typeof res[0].erro != "undefined"){
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: res[0].erro,
+                                    confirmButtonText: "Continuar",
+                                    confirmButtonColor: "#ffc107"
+                                }).then(function () {
+                                    return false;
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Produto cadastrado com sucesso',
+                                    confirmButtonText: "Continuar",
+                                    confirmButtonColor: "#ffc107"
+                                }).then(function () {
+                                    window.location.href = PATH + '/produto'
+                                })
+                            }
+                        });
+                    }
                     e.preventDefault();
 
                     return true;

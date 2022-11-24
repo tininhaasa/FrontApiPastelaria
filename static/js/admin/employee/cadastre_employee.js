@@ -94,43 +94,85 @@
     var save = function(){
         $("body").on("click", "#save", function(){
             if(check()){
-                $.ajax({
-                    url: PATH + "funcionario/salvar_funcionario/",
-                    type: "POST",
-                    data: {
-                        id : 0,
-                        nome : $('#name').val(),
-                        documento : $('#document').val(),
-                        telefone: $('#phone').val(),
-                        grupo: $('#group').val(),
-                        login: $('#login').val(),
-                        senha: $('#password').val(),
-                        matricula: 1
-                    },
-                    dataType: "JSON",
-                }).done(function (res) {
+                if($("#id").val() != ""){
 
-                    array_res = res[0];
-                    if(typeof res[0].erro != "undefined"){
-                        Swal.fire({
-                            icon: 'error',
-                            text: res[0].erro,
-                            confirmButtonText: "Continuar",
-                            confirmButtonColor: "#ffc107"
-                        }).then(function(res){
-                            return false;
-                        })
-                    }else{
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Funcionário cadastrado com sucesso',
-                            confirmButtonText: "Continuar",
-                            confirmButtonColor: "#ffc107"
-                        }).then(function(res){
-                            window.location.href = PATH + '/funcionario'
-                        })
-                    }
-                })
+                    console.log($("#id").val())
+                    $.ajax({
+                        url: PATH + "funcionario/editar_funcionario/",
+                        type: "POST",
+                        data: {
+                            id : $("#id").val(),
+                            nome : $('#name').val(),
+                            documento : $('#document').val(),
+                            telefone: $('#phone').val(),
+                            grupo: $('#group').val(),
+                            login: $('#login').val(),
+                            senha: $('#password').val(),
+                            matricula: 1
+                        },
+                        dataType: "JSON",
+                    }).done(function (res) {
+
+                        array_res = res[0];
+                        if(typeof res[0].erro != "undefined"){
+                            Swal.fire({
+                                icon: 'error',
+                                text: res[0].erro,
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function(res){
+                                return false;
+                            })
+                        }else{
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Funcionário cadastrado com sucesso',
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function(res){
+                                window.location.href = PATH + '/funcionario'
+                            })
+                        }
+                    })
+                }else{
+                    $.ajax({
+                        url: PATH + "funcionario/salvar_funcionario/",
+                        type: "POST",
+                        data: {
+                            id : 0,
+                            nome : $('#name').val(),
+                            documento : $('#document').val(),
+                            telefone: $('#phone').val(),
+                            grupo: $('#group').val(),
+                            login: $('#login').val(),
+                            senha: $('#password').val(),
+                            matricula: 1
+                        },
+                        dataType: "JSON",
+                    }).done(function (res) {
+
+                        array_res = res[0];
+                        if(typeof res[0].erro != "undefined"){
+                            Swal.fire({
+                                icon: 'error',
+                                text: res[0].erro,
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function(res){
+                                return false;
+                            })
+                        }else{
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Funcionário cadastrado com sucesso',
+                                confirmButtonText: "Continuar",
+                                confirmButtonColor: "#ffc107"
+                            }).then(function(res){
+                                window.location.href = PATH + '/funcionario'
+                            })
+                        }
+                    })
+                }
             }
         })
     }

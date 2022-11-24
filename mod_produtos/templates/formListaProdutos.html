@@ -2,13 +2,23 @@
 
 {% block title %}Produtos{% endblock %}
 
+{# ajusta as variáveis conforme novo ou edit #}
+{% set id = result[0].id if result else '0' %}
+{% set nome = result[0].nome if result else '' %}
+{% set preco = result[0].preco if result else '' %}
+{% set qtd = result[0].qtd if result else '' %}
+{% set desc = result[0].descricao if result else '' %}
+{% set foto = result[0].foto if result else '' %}
+
 {% block content %}
 <section class="approve dashboard-page" id="approve-content">
 
     <div class="container">
         <form name="product-form" id="product-form" enctype="multipart/form-data">
+            <input type="text" hidden name="id" id="id" value="{{ id }}">
             <div class="mb-3 row ">
-                <div class="img-product col-md-3"></div>
+                
+                <div class="img-product col-md-3" style='background: url("{{ foto }}") no-repeat center/cover'></div>
                 <div class="mb-sm-3 mb-md-0 col-md-9 d-flex align-items-center">
                     <input maxlength="100" class="form-control" accept="image/*" type="file" id="image_product" name="image_product">
                 </div>
@@ -16,19 +26,19 @@
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Nome Produto</label>
-                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="João">
+                <input maxlength="100" type="text" class="form-control" id="name" name="name" placeholder="João" value="{{ nome }}">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Preço</label>
-                <input maxlength="100" type="text" class="form-control" id="price" name="price" placeholder="R$ 22,50">
+                <input maxlength="100" type="text" class="form-control" id="price" name="price" placeholder="R$ 22,50" value="{{ preco }}">
             </div>
             <div class="mb-3">
                 <label for="qtd" class="form-label">Qtd</label>
-                <input maxlength="100" type="number" class="form-control" id="qtd" name="qtd" placeholder="22">
+                <input maxlength="100" type="number" class="form-control" id="qtd" name="qtd" placeholder="22" value="{{ qtd }}">
             </div>
             <div class="mb-3">
                 <label for="desc" class="form-label">Descrição</label>
-                <textarea class="form-control" id="desc" name="desc" cols="30" rows="10"></textarea>
+                <textarea class="form-control" id="desc" name="desc" cols="30" rows="10">{{ desc }}</textarea>
             </div>
 
             <button type="button" class="btn btn-outline-success" id="save">

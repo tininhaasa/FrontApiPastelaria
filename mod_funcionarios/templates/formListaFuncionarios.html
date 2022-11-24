@@ -2,44 +2,55 @@
 
 {% block title %}Funcionário{% endblock %}
 
+{# ajusta as variáveis conforme novo ou edit #}
+{% set id = result[0].id if result else '0' %}
+{% set nome = result[0].nome if result else '' %}
+{% set matricula = result[0].matricula if result else '' %}
+{% set login = result[0].login if result else '' %}
+{% set cpf = result[0].cpf if result else '' %}
+{% set telefone = result[0].telefone if result else '' %}
+{% set grupo = result[0].grupo if result else '' %}
+{% set senha = result[0].senha if result else '' %}
+
 {% block content %}
+{{result}}
 <section class="approve dashboard-page" id="approve-content">
 
 <section class="employee mt-4" id="employee-content">
     <div class="container">
         <form name="funcionario" id="form-funcionario">
-            <input type="text" hidden name="id" id="id">
+            <input type="text" hidden name="id" id="id" value="{{ id }}">
             <div class="mb-3">
                 <label for="name" class="form-label">Nome Completo</label>
-                <input maxlength="100" type="text" class="form-control" id="name" name="nome" placeholder="João" >
+                <input maxlength="100" type="text" class="form-control" id="name" name="nome" placeholder="João" value="{{ nome }}">
             </div>
             <div class="mb-3">
                 <label for="document" class="form-label">CPF</label>
-                <input maxlength="100" type="text" class="form-control" id="document" name="document" placeholder="012.949.879-36" >
+                <input maxlength="100" type="text" class="form-control" id="document" name="document" placeholder="012.949.879-36" value="{{ cpf }}">
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Telefone</label>
-                <input maxlength="100" type="text" class="form-control" id="phone" name="telefone" placeholder="(49) 984321-8923" >
+                <input maxlength="100" type="text" class="form-control" id="phone" name="telefone" placeholder="(49) 984321-8923" value="{{ telefone }}">
             </div>
             <div class="mb-3">
                 <label for="group" class="form-label">Grupo</label>
                 <select class="form-control" id="group" name="grupo" >
-                    <option value="" selected hidden>Selecione o grupo</option>
+                    <option value="{{ grupo }}" selected hidden>{{ grupo }}</option>
                     <option value="1">Administrador</option>
                     <option value="2">Funcionário</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="login" class="form-label">Login</label>
-                <input maxlength="100" type="text" class="form-control" id="login" name="login" placeholder="JaoCleber123" >
+                <label for="login" class="form-label">Login/Matricula</label>
+                <input maxlength="100" type="text" class="form-control" id="login" name="login" placeholder="JaoCleber123" value="{{ matricula }}">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Senha</label>
-                <input maxlength="100" type="password" class="form-control" id="password" name="senha" placeholder="******" >
+                <input maxlength="100" type="password" class="form-control" id="password" name="senha" placeholder="******" value="{{ senha }}">
             </div>
             <div class="mb-3">
                 <label for="repass" class="form-label">Confirmar Senha</label>
-                <input maxlength="100" type="password" class="form-control" id="repass" name="repassword" placeholder="******" >
+                <input maxlength="100" type="password" class="form-control" id="repass" name="repassword" placeholder="******" value="{{ senha }}">
             </div>
 
             <div class="text-end">

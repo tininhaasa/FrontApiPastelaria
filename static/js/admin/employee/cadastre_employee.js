@@ -94,7 +94,7 @@
     var save = function(){
         $("body").on("click", "#save", function(){
             if(check()){
-                if($("#id").val() != ""){
+                if($("#id").val() != "" && $("#id").val() != "0"){
 
                     console.log($("#id").val())
                     $.ajax({

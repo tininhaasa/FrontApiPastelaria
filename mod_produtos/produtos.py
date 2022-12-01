@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
+from mod_login.login import validaSessao
 import requests
 import base64
 
@@ -10,6 +11,7 @@ headers = {'x-token': 'abcBolinhasToken', 'x-key': 'abcBolinhasKey'}
 
 ''' rotas dos formulários '''
 @bp_produto.route('/cadastrar/', methods=['GET'])
+@validaSessao
 def formListaProduto():
     return render_template('formListaProdutos.html'), 200
 
@@ -72,6 +74,7 @@ def delete():
 
 ''' rotas dos formulários '''
 @bp_produto.route('/', methods=['GET', 'POST'])
+@validaSessao
 def ListaProdutos():
     try:
         response = requests.get(urlApiProdutos, headers=headers)
@@ -84,6 +87,7 @@ def ListaProdutos():
         return render_template('ListaProdutos.html', erro=e)
 
 @bp_produto.route("/form-edit-produto", methods=['POST'])
+@validaSessao
 def formEditProduto():
     try:
         # ID enviado via FORM

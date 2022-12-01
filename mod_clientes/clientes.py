@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
+from mod_login.login import validaSessao
 import requests
 from funcoes import Funcoes
 
@@ -10,6 +11,7 @@ headers = {'x-token': 'abcBolinhasToken', 'x-key': 'abcBolinhasKey'}
 
 ''' rotas dos formulários '''
 @bp_cliente.route('/', methods=['GET', 'POST'])
+@validaSessao
 def ListaCliente():
     try:
         response = requests.get(urlApiClientes, headers=headers)
@@ -63,7 +65,9 @@ def update():
         return result
     except Exception as e:
         return e
+
 @bp_cliente.route("/form-edit-cliente", methods=['POST'])
+@validaSessao
 def formEditCliente():
     try:
         # ID enviado via FORM
@@ -95,5 +99,6 @@ def delete():
 
 ''' rotas dos formulários '''
 @bp_cliente.route('/cadastrar/', methods=['GET'])
+@validaSessao
 def formListaCliente():
     return render_template('formListaClientes.html'), 200

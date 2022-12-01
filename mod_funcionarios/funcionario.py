@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request , jsonify
 import requests
 from funcoes import Funcoes
+from mod_login.login import validaSessao
+
 bp_funcionario = Blueprint('funcionario', __name__, url_prefix="/funcionario", template_folder='templates')
 
 ''' endereços do endpoint '''
@@ -10,6 +12,7 @@ headers = {'x-token': 'abcBolinhasToken', 'x-key': 'abcBolinhasKey'}
 
 ''' rotas dos formulários '''
 @bp_funcionario.route('/cadastrar/', methods=['GET'])
+@validaSessao
 def formListaFuncionario():
     return render_template('formListaFuncionarios.html'), 200
 
@@ -20,13 +23,12 @@ def insert():
         id_funcionario = request.form['id']
         nome = request.form['nome']
         matricula = request.form['login']
-        login = request.form['login']
         documento = request.form['documento']
         telefone = request.form['telefone']
         grupo = request.form['grupo']
         senha = Funcoes.cifraSenha(request.form['senha'])
         # monta o JSON para envio a API
-        payload = {'id': id_funcionario, 'nome': nome, 'matricula': matricula,'cpf': documento, 'telefone': telefone, 'grupo': grupo, 'login':login, 'senha': senha, 'status': 1}
+        payload = {'id': id_funcionario, 'nome': nome, 'matricula': matricula,'cpf': documento, 'telefone': telefone, 'grupo': grupo, 'senha': senha, 'status': 1}
         # executa o verbo POST da API e armazena seu retorno
         response = requests.post(urlApiFuncionarios, headers=headers, json=payload)
         result = response.json()
@@ -47,7 +49,7 @@ def update():
         grupo = request.form['grupo']
         senha = Funcoes.cifraSenha(request.form['senha'])
         # monta o JSON para envio a API
-        payload = {'id': id_funcionario, 'nome': nome, 'matricula': matricula,'cpf': documento, 'telefone': telefone, 'grupo': grupo, 'login':login, 'senha': senha, 'status': 1}
+        payload = {'id': id_funcionario, 'nome': nome, 'matricula': matricula,'cpf': documento, 'telefone': telefone, 'grupo': grupo, 'senha': senha, 'status': 1}
         # executa o verbo POST da API e armazena seu retorno
         response = requests.put(urlApiFuncionarios + id_funcionario, headers=headers, json=payload)
         result = response.json()
@@ -56,6 +58,7 @@ def update():
         return e
 
 @bp_funcionario.route("/form-edit-funcionario", methods=['POST'])
+@validaSessao
 def formEditFuncionario():
     try:
         # ID enviado via FORM
@@ -73,6 +76,7 @@ def formEditFuncionario():
 
 ''' rotas dos formulários '''
 @bp_funcionario.route('/', methods=['GET', 'POST'])
+@validaSessao
 def ListaFuncionarios():
 
     try:
